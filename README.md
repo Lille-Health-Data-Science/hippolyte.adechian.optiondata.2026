@@ -3,23 +3,6 @@
 Projet réalisé dans le cadre du Master 2 Data Science en Santé (Université de Lille), séance 1 « FHIR, échanger les données de santé ».
 Il montre comment passer d'un export FHIR (NDJSON) à des tables OMOP (`PERSON`, `MEASUREMENT`) avec DuckDB, en harmonisant les unités des glycémies, puis comment répondre à une question clinique à partir de ces tables.
 
-> Toutes les données sont **fictives**. N'écrivez jamais de données réelles sur le serveur public HAPI.
-
-## Contenu du dépôt
-
-```
-.
-├── seance1_etudiant_corrige.ipynb       # notebook complété (sans sorties)
-├── seance1_etudiant_corrige_exec.ipynb  # même notebook, exécuté, avec graphiques
-├── REPONSES.md                          # réponses aux questions du notebook
-├── requirements.txt                     # dépendances Python
-└── donnees/
-    ├── concepts.csv                     # identifiants de concepts OMOP utilisés
-    └── export_fhir/
-        ├── Patient.ndjson               # 150 patients
-        ├── Observation.ndjson           # 984 observations (glycémies, HbA1c)
-        └── Condition.ndjson             # 55 diagnostics de diabète
-```
 
 ## Ce que fait le notebook
 
