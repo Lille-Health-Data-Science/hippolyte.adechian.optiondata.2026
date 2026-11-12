@@ -1,12 +1,15 @@
 # Séance 1 · FHIR — Réponses aux questions du notebook
 
-Chiffres obtenus en exécutant `seance1_etudiant_corrige.ipynb` sur `donnees/export_fhir/` (150 patients, 984 observations, 55 conditions).
-Les cellules qui interrogent le serveur public HAPI (A2, partie B) n'ont pas pu être exécutées depuis mon environnement (réseau bloqué) : le code est complété, mais les réponses correspondantes sont conceptuelles. À relancer de votre côté.
+Chiffres obtenus en exécutant `seance1_etudiant.ipynb` sur `donnees/export_fhir/` (150 patients, 984 observations, 55 conditions).
+
 
 ## A · Partie 01 et 02
 **A1 – Validation.** `obs2` : date `2026-09-02T08:10:00+02:00`, valeur 1,26 g/L, et `"encounter": {"reference": "Encounter/sejour-001"}` (élément `Observation.encounter`). `fhir.resources` la valide.
+
 **Deux erreurs, deux comportements.** La date « 02/09/2026 » est **refusée** : `dateTime` suit une expression régulière précise (ISO 8601). Le statut inventé « terminé » est **accepté** : `fhir.resources` vérifie la structure et les formats, pas l'appartenance d'un code à son jeu de valeurs (binding). Un code faux mais bien formé passe donc, d'où l'intérêt de valider aussi les terminologies (serveur de terminologie, profils).
+
 **A2 – Recherche.** `_sort=-date`, `_count=5` ; on s'attend à un Bundle de type `searchset`, 5 entrées maximum ; le patient est `b["entry"][0]["resource"]["subject"]["reference"]`, réutilisé dans `patient=`.
+
 **A3 – FHIRPath.** Prénom : `Patient.name.where(use = 'official').given.first()` → « Marie ». Date : `Observation.effective.ofType(dateTime)` → `2026-09-01T08:30:00+02:00`.
 `ofType(Quantity)` ne renvoie rien sans `model` car `value[x]` est un type choix : dans le JSON la clé est `valueQuantity`, et seul le modèle R4 sait que `value` + `Quantity` correspondent à cette clé.
 
