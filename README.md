@@ -39,7 +39,7 @@ Il montre comment passer d'un export FHIR (NDJSON) à des tables OMOP (`PERSON`,
 
 ## Résultats principaux
 
-| Question | Résultat |
+| Questions | Réponses |
 |---|---|
 | Glycémies exploitables après nettoyage | 835 |
 | Patients avec ≥ 2 glycémies ≥ 126 mg/dL | 59, dont 9 sans diagnostic codé |
@@ -47,37 +47,3 @@ Il montre comment passer d'un export FHIR (NDJSON) à des tables OMOP (`PERSON`,
 | Glycémies ≥ 126 mg/dL qui auraient échappé sans conversion | 41,2 % (119 sur 289) |
 | Patients avec HbA1c ≥ 6,5 % | 53, aucun sans diagnostic codé |
 | Patient à la glycémie maximale | p-0071 (254 mg/dL) |
-
-Le détail et les réponses aux questions du notebook sont dans [`REPONSES.md`](REPONSES.md).
-Les patients dosés en HbA1c sont uniquement ceux qui ont déjà un diagnostic : biais de sélection à garder en tête.
-
-## Installation et lancement
-
-Python 3.13 (testé) ; Python 3.10 ou plus récent devrait suffire.
-
-```bash
-git clone <url-du-depot>
-cd <nom-du-depot>
-python -m venv .venv
-source .venv/bin/activate        # Windows : .venv\Scripts\activate
-pip install -r requirements.txt
-jupyter notebook seance1_etudiant_corrige.ipynb
-```
-
-Ouvrez le notebook **depuis la racine du dépôt** : il lit `donnees/export_fhir/` avec des chemins relatifs.
-
-### Remarques
-
-- **Réseau** : les parties A2 et B interrogent `https://hapi.fhir.org/baseR4`. Sans accès, elles affichent « Serveur injoignable » ; les parties C et D n'en dépendent pas. Un serveur local est possible : `docker run -p 8080:8080 hapiproject/hapi:latest`, puis `BASE = "http://localhost:8080/fhir"`.
-- **DuckDB** : le notebook utilise la syntaxe `lambda c: c.code` (DuckDB ≥ 1.3). Avec DuckDB 1.1 ou 1.2, remplacez-la par l'ancienne flèche `c -> c.code`, dépréciée dans DuckDB 2.0.
-- Le notebook écrit `sortie/person.parquet` et `sortie/measurement.parquet` ; ce dossier est généré à l'exécution.
-- Les identifiants de concepts de `concepts.csv` sont un extrait pédagogique : à vérifier dans [Athena](https://athena.ohdsi.org) avant tout usage réel.
-
-## Technologies
-
-Python · Jupyter · DuckDB · pandas · matplotlib · `fhir.resources` · `fhirpathpy` · `requests` · `ipywidgets`
-
-## Auteur
-
-Hippolyte ADECHIAN — Master 2 Data Science en Santé, Université de Lille.
-Séance et jeu de données : Antoine Teston (antoine.teston@univ-lille.fr).
