@@ -67,11 +67,11 @@ pip install -r requirements.txt
 jupyter notebook seance1_etudiant.ipynb
 ```
 
-## Technologies
+## Technologies :
 
 Python 3.14 · Jupyter · DuckDB · pandas · matplotlib · `fhir.resources` · `fhirpathpy` · `requests` · `ipywidgets`
 
-## Réalisé par
+## Réalisé par :
 
 Hippolyte ADECHIAN
 
