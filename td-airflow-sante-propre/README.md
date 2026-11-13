@@ -82,14 +82,6 @@ Choix de conception :
 - **Fiabilité :** `extraire` a 3 retries à 20 secondes d'écart (en production : 5 retries à 2 minutes), et `on_failure_callback` écrit l'alerte dans `donnees/alertes.log`.
 - **Pool `api_fhir` (3 places) :** limite les appels simultanés au serveur FHIR.
 
-Lancement sans réseau, avec la source `fichier` :
-
-```bash
-docker compose exec airflow-scheduler airflow pools set api_fhir 3 "API FHIR"
-docker compose exec airflow-scheduler airflow dags unpause fhir_glycemies_quotidien
-docker compose exec airflow-scheduler airflow dags trigger fhir_glycemies_quotidien --conf "{\"source\": \"fichier\"}"
-```
-
 Résultat : les **quatre tâches sont vertes** dans Grid. La capture ci-dessous montre trois exécutions, de gauche à droite :
 
 1. **l'exécution planifiée créée à l'activation, avant l'étape 1 :** `extraire` est rouge (« Étape 1 à compléter », après ses trois retries) et les tâches suivantes sont orange (`upstream_failed`) ;
