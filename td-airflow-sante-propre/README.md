@@ -39,11 +39,11 @@ L'exécution entière est en échec. Le contrôle empêche de charger des donné
 
 1. **Après l'ajout de `controler`, avec `nb_patients = 150` :** les deux premières exécutions n'ont pas de ligne `controler` (la tâche n'existait pas encore) ; la dernière, avec `controler`, est entièrement verte.
 
-   ![Grid de mon_premier_dag : controler et charger verts](captures/Capture d'écran 2026-11-12 155522.png)
+   ![Grid de mon_premier_dag : controler et charger verts](<captures/Capture d'écran 2026-11-12 155522.png>)
 
 2. **Avec `nb_patients = 40` :** `controler` est rouge (✗, `ValueError`), `charger` est orange (`upstream_failed`), et l'exécution entière est en échec. `extraire` et `transformer` restent verts.
 
-   ![Grid de mon_premier_dag : controler en échec, charger upstream_failed](captures/Capture d'écran 2026-11-12 155910.png)
+   ![Grid de mon_premier_dag : controler en échec, charger upstream_failed](<captures/Capture d'écran 2026-11-12 155910.png>)
 
 ## 3. Partie 02 · Prévoir les exécutions
 
@@ -57,11 +57,9 @@ DAG `prevoir_executions` : `schedule="0 6 * * *"`, `start_date=datetime(2026, 11
 
 **Capture de la sortie de `airflow dags list-runs prevoir_executions`** : 13 lignes, soit les 12 exécutions `scheduled__` du 1er au 12 novembre (toutes en `success`, `run_after` égal à `logical_date`) et l'exécution `manual__` du 12 novembre.
 
-![Sortie de list-runs pour prevoir_executions : 12 exécutions planifiées et une manuelle](captures/Capture d'écran 2026-11-13 153432.png)
+![Sortie de list-runs pour prevoir_executions : 12 exécutions planifiées et une manuelle](<captures/Capture d'écran 2026-11-13 153432.png>)
 
-**Avec `catchup=False` et `dag_id="prevoir_executions_v2"` :** l'activation crée **une seule** exécution planifiée, la plus récente : `scheduled__2026-11-12T06:00:00+00:00`. Le `dag_id` doit changer, parce qu'Airflow garde l'historique des exécutions par nom : modifier seulement `catchup` laisserait les exécutions déjà créées.
-
-**À retenir :** sans `catchup=False`, activer un DAG dont la `start_date` est ancienne déclenche d'un coup tout l'arriéré.
+**Avec `catchup=False` et `dag_id="prevoir_executions_v2"` :** l'activation crée **une seule** exécution planifiée, la plus récente : `scheduled__2026-11-12T06:00:00+00:00`.
 
 ## 4. Partie 04 · Le flux FHIR quotidien
 
@@ -98,7 +96,7 @@ Résultat : les **quatre tâches sont vertes** dans Grid. La capture ci-dessous 
 2. **le premier lancement avec `source = fichier` :** `extraire` est vert, `aplatir` est rouge (« Étape 2 à compléter ») et `valider` et `charger` sont orange ;
 3. **le lancement avec le DAG complété :** les quatre tâches sont vertes.
 
-![Grid de fhir_glycemies_quotidien : de l'échec au succès](captures/Capture d'écran 2026-11-13 001401.png)
+![Grid de fhir_glycemies_quotidien : de l'échec au succès](<captures/Capture d'écran 2026-11-13 001401.png>)
 
 Chiffres attendus par l'énoncé avec la source `fichier` : 684 ressources, 20 lignes rejetées (sans valeur ni unité), 664 glycémies chargées dans `donnees/entrepot.duckdb`.
 
