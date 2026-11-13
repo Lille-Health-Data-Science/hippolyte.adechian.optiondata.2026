@@ -1,4 +1,4 @@
-# TD Airflow · Séance 2
+# TD Airflow
 
 ## Résumé
 
