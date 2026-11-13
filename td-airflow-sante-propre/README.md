@@ -9,7 +9,7 @@
 | 02 · Prévoir les exécutions | Compter les exécutions de `prevoir_executions` | 12 exécutions planifiées, première `logical_date` 2026-11-01 06:00 UTC |
 | 04 · Flux FHIR quotidien | DAG `fhir_glycemies_quotidien` en 4 tâches | Les 4 tâches passent au vert |
 
-## 2. Partie 01 · Premier DAG
+## Partie 01 · Premier DAG
 
 **Consigne :** ajouter une tâche `controler` entre `transformer` et `charger`, qui lève `ValueError` si n < 100. Que voit-on dans Grid avec `nb_patients = 40` ?
 
@@ -45,7 +45,7 @@ L'exécution entière est en échec. Le contrôle empêche de charger des donné
 
    ![Grid de mon_premier_dag : controler en échec, charger upstream_failed](<captures/Capture d'écran 2026-11-12 155910.png>)
 
-## 3. Partie 02 · Prévoir les exécutions
+## Partie 02 · Prévoir les exécutions
 
 DAG `prevoir_executions` : `schedule="0 6 * * *"`, `start_date=datetime(2026, 11, 1)`, `catchup=True`.
 
@@ -61,7 +61,7 @@ DAG `prevoir_executions` : `schedule="0 6 * * *"`, `start_date=datetime(2026, 11
 
 **Avec `catchup=False` et `dag_id="prevoir_executions_v2"` :** l'activation crée **une seule** exécution planifiée, la plus récente : `scheduled__2026-11-12T06:00:00+00:00`.
 
-## 4. Partie 04 · Le flux FHIR quotidien
+## Partie 04 · Le flux FHIR quotidien
 
 Le DAG `fhir_glycemies_quotidien` enchaîne quatre tâches :
 
@@ -97,8 +97,6 @@ Résultat : les **quatre tâches sont vertes** dans Grid. La capture ci-dessous 
 3. **le lancement avec le DAG complété :** les quatre tâches sont vertes.
 
 ![Grid de fhir_glycemies_quotidien : de l'échec au succès](<captures/Capture d'écran 2026-11-13 001401.png>)
-
-Chiffres attendus par l'énoncé avec la source `fichier` : 684 ressources, 20 lignes rejetées (sans valeur ni unité), 664 glycémies chargées dans `donnees/entrepot.duckdb`.
 
 Vérifications du TD (4.4) :
 - **Aucun doublon :** relancer avec la même source ne change pas le total affiché par `charger`.
